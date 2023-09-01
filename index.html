@@ -47,12 +47,20 @@
           <button
             type="button"
             class="bg-[#25252533] px-5 py-3 text-lg text-[#252525] font-semibold"
+            id="sort-view"
           >
             Sort by view
           </button>
+          <!-- <select id="sort-select">
+            <option value="">Select one</option>
+            <option value="high_views">High Views</option>
+            <option value="low_views">Low Views</option>
+            <option value="title">Title</option>
+            Add other sorting options if needed
+          </select> -->
         </div>
         <div class="navbar-end">
-          <a class="bg-[#FF1F3D] px-5 py-2 text-white">Blog</a>
+          <a href="./blog.html" class="bg-[#FF1F3D] px-5 py-2 text-white">Blog</a>
         </div>
       </div>
     </header>
@@ -66,64 +74,44 @@
       </div>
 
       <!-- tab content -->
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10 mt-20" id="tab-content">
-        <div class="card bg-base-100 shadow-xl">
+      <div
+        class="grid md:grid-cols-2 lg:grid-cols-4 gap-10 mt-20"
+        id="tab-content"
+      >
+        <!-- <div class="card bg-base-100 shadow-xl">
+          <div class="relative">
             <figure>
-                <img
-                src="./img/Icon.png"
-                alt="Content"
-                />
+              <img src="./img/Icon.png" alt="Content" />
             </figure>
-            <div class="card-body">
-                <div class="flex gap-5">
-                <div>
-                    <div class="avatar online">
-                        <div class="w-14 rounded-full">
-                            <img
-                            src="./img/Icon.png"
-                            />
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <h2 class="card-title">Building a Winning UX Strategy Using the Kano Model</h2>
-                    <p class="text-base">Awlad Hossain <img src="./img/verified.png" class="w-5 inline"></p>
-                    <small class="text-sm">91K views</small>
-                </div>
-                </div>
+            <div class="absolute bg-[#171717] px-1 py-2 text-white right-0 bottom-0 rounded-md">
+              <p>3hrs 56 min ago</p>
             </div>
-        </div>
-
-        
-        <div class="card bg-base-100 shadow-xl">
-            <figure>
-                <img
-                src="./img/Icon.png"
-                alt="Content"
-                />
-            </figure>
-            <div class="card-body">
-                <div class="flex gap-5">
-                <div>
-                    <div class="avatar online">
-                        <div class="w-14 rounded-full">
-                            <img
-                            src="./img/Icon.png"
-                            />
-                        </div>
-                    </div>
+          </div>
+          <div class="card-body">
+            <div class="flex gap-5">
+              <div>
+                <div class="avatar online">
+                  <div class="w-14 rounded-full">
+                    <img src="./img/Icon.png" />
+                  </div>
                 </div>
-                <div>
-                    <h2 class="card-title">Building a Winning UX Strategy Using the Kano Model</h2>
-                    <p class="text-base">Awlad Hossain <img src="./img/verified.png" class="w-5 inline"></p>
-                    <small class="text-sm">91K views</small>
-                </div>
-                </div>
+              </div>
+              <div>
+                <h2 class="card-title">
+                  Building a Winning UX Strategy Using the Kano Model
+                </h2>
+                <p class="text-base">
+                  Awlad Hossain
+                  <img src="./img/verified.png" class="w-5 inline" />
+                </p>
+                <small class="text-sm">91K views</small>
+              </div>
             </div>
-        </div>
-
-
+          </div>
+        </div> -->
       </div>
+
+      <div id="no-content"></div>
     </main>
 
     <!-- script -->

@@ -1,4 +1,4 @@
-// ======================================================================================================================
+let dataArr = [];
 
 // fetch category
 const category = async () => {
@@ -9,6 +9,7 @@ const category = async () => {
   const categories = data.data;
   displayCategory(categories);
 };
+
 // display category
 const displayCategory = (categories) => {
   const categoryList = document.getElementById("category-list");
@@ -24,18 +25,18 @@ const displayCategory = (categories) => {
 
 // display category data
 const displayCategoryData = async (categoryId) => {
-  // get id and remove content
-  const tabContent = document.getElementById("tab-content");
-  tabContent.innerText = "";
-  const noContent = document.getElementById("no-content");
-  noContent.innerText = "";
-
   // fetch json data
   const res = await fetch(
     `https://openapi.programming-hero.com/api/videos/category/${categoryId}`
   );
   const data = await res.json();
   const categoryData = data.data;
+
+  // get id and remove content
+  const tabContent = document.getElementById("tab-content");
+  tabContent.innerText = "";
+  const noContent = document.getElementById("no-content");
+  noContent.innerText = "";
 
   // convert second to hour
   const convertHrsMin = (num) => {
@@ -44,32 +45,14 @@ const displayCategoryData = async (categoryId) => {
     return `${hrs}hrs ${min}min`;
   };
 
-  categoryData.sort(
-    (a, b) =>
-      parseFloat(a.others.views.replace("K", "")) -
-      parseFloat(b.others.views.replace("K", ""))
-  );
-
-  // const sortSelect = document.getElementById("sort-view");
-  // const sortSelectValue = sortSelect.value;
-
-  // categoryData.sort((a, b) => {
-  //   parseFloat(a.others.views.replace("K", "")) -
-  //   parseFloat(b.others.views.replace("K", ""));
-
-  //   const viewsA = parseFloat(a.others.views.replace("K", ""));
-  //   const viewsB = parseFloat(b.others.views.replace("K", ""));
-
-  //   if (sortSelectValue === "high_views") {
-  //     return viewsB - viewsA; // Ascending order
-  //   } else {
-  //     return viewsA - viewsB; // Descending order
-  //   }
-
-  // });
-
   // check data status for display data
   if (data.status === true) {
+    // get id and remove content
+    const tabContent = document.getElementById("tab-content");
+    tabContent.innerText = "";
+    const noContent = document.getElementById("no-content");
+    noContent.innerText = "";
+
     categoryData.forEach((data) => {
       //   console.log(data);
       const hrsMin = data.others.posted_date;
@@ -120,7 +103,7 @@ const displayCategoryData = async (categoryId) => {
                     </div>
                 </div>
             </div>
-            `;
+      `;
       tabContent.appendChild(div);
     });
   } else {
@@ -135,13 +118,100 @@ const displayCategoryData = async (categoryId) => {
   }
 };
 
-// Add a click event listener to the "Sort by view" button
-// document.getElementById("sort-view").addEventListener('change', () => {
-//     displayCategoryData("1000");
-// });
+const displayCategoryDataSort = async (categoryId) => {
+  // get id and remove content
+  const tabContent = document.getElementById("tab-content");
+  tabContent.innerText = "";
+  const noContent = document.getElementById("no-content");
+  noContent.innerText = "";
+
+  // displayCategoryData(categoryId);
+
+  // fetch json data
+  const res = await fetch(
+    `https://openapi.programming-hero.com/api/videos/category/${categoryId}`
+  );
+  const data = await res.json();
+  const categoryData = data.data;
+
+  const dataSort = categoryData.sort(
+    (a, b) =>
+      parseFloat(b.others.views.replace("K", "")) -
+      parseFloat(a.others.views.replace("K", ""))
+  );
+
+  if (data.status === true) {
+    // get id and remove content
+    const tabContent = document.getElementById("tab-content");
+    tabContent.innerText = "";
+    const noContent = document.getElementById("no-content");
+    noContent.innerText = "";
+
+    // convert second to hour
+    const convertHrsMin = (num) => {
+      let hrs = Math.floor(num / 3600);
+      let min = Math.floor((num % 3600) / 60);
+      return `${hrs}hrs ${min}min`;
+    };
+    dataSort.forEach((data) => {
+      //   console.log(data);
+      const hrsMin = data.others.posted_date;
+      const div = document.createElement("div");
+      div.innerHTML = `
+            <div class="card bg-base-100 shadow-xl">
+                <div class="relative">
+                <figure>
+                <img
+                    src="${data.thumbnail}"
+                    alt="Content"
+                    class="w-full"
+                    />
+                </figure>
+                ${
+                  data.others.posted_date
+                    ? `<div class='absolute bg-[#171717] px-1 py-2 text-white right-0 bottom-0 rounded-md'><p>${convertHrsMin(
+                        hrsMin
+                      )}</p></div>`
+                    : ""
+                }
+                
+            </div>
+                <div class="card-body">
+                    <div class="flex gap-5">
+                    <div>
+                        <div class="avatar">
+                            <div class="w-14 rounded-full">
+                                <img
+                                src="${data.authors[0].profile_picture}"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h2 class="card-title">${data.title}</h2>
+                        <p class="text-base">${data.authors[0].profile_name} 
+                        ${
+                          data.authors[0].verified
+                            ? "<img src='./img/verified.png' class='w-5 inline'>"
+                            : " "
+                        }
+                        </p>
+                        <small class="text-sm">${
+                          data.others.views
+                        } views</small>
+                    </div>
+                    </div>
+                </div>
+            </div>
+      `;
+      tabContent.appendChild(div);
+    });
+  }
+
+};
 
 document.getElementById("sort-view").addEventListener("click", () => {
-  displayCategoryData("1000");
+  displayCategoryDataSort("1000");
 });
 
 // default show data

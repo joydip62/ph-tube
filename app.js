@@ -1,5 +1,3 @@
-let dataArr = [];
-
 // fetch category
 const category = async () => {
   const res = await fetch(
